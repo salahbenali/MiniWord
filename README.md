@@ -31,3 +31,20 @@ El editor incluye las siguientes herramientas:
 
 # Imagen del programa:    
 <img width="999" height="782" alt="imagen" src="https://github.com/user-attachments/assets/db9acb17-d458-40bc-969f-36a1c2894db6" />
+
+
+# Crear exe:
+<img width="1182" height="643" alt="Captura de pantalla (378)" src="https://github.com/user-attachments/assets/002c5a48-d50a-4a4c-a0ad-44f480c0eb33" />
+
+
+# Firma del exe:
+<img width="1142" height="611" alt="Captura de pantalla (381)" src="https://github.com/user-attachments/assets/5d747ac1-4481-4345-93a1-41d298da78a5" />
+
+
+# Generar instalador:
+<img width="1424" height="753" alt="Captura de pantalla (384)" src="https://github.com/user-attachments/assets/0f9fb0c4-c0aa-47d5-acbf-fb01d71b59f8" />
+<img width="960" height="459" alt="Captura de pantalla (386)" src="https://github.com/user-attachments/assets/e0df7a24-e6a7-426a-99b2-7acebd316abc" />
+<img width="822" height="629" alt="Captura de pantalla (387)" src="https://github.com/user-attachments/assets/91c2a119-1b8a-44ce-a583-65851b571f64" />
+<img width="865" height="699" alt="Captura de pantalla (389)" src="https://github.com/user-attachments/assets/74ef48d4-4d8c-46b8-890d-6d862a45a62d" />
+
+
