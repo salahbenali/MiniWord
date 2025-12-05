@@ -4,6 +4,8 @@ from PySide6.QtWidgets import (
     QLineEdit, QPushButton
 )
 from PySide6.QtGui import QAction, QTextDocument
+import speech_recognition as sr
+
 
 class MiniWord(QMainWindow):
     def __init__(self):
@@ -97,6 +99,8 @@ class MiniWord(QMainWindow):
         self.cortar_toolbar = QAction("✂️", self)
         self.cortar_toolbar.triggered.connect(self.texto.cut)
         self.buscar_toolbar = QAction("🔍", self)
+        self.voz_toolbar = QAction("🎙️", self)
+        self.voz_toolbar.triggered.connect(self.dictar_por_voz)
 
         self.buscar_toolbar.triggered.connect(self.toggle_panel_buscar)
 
@@ -121,6 +125,7 @@ class MiniWord(QMainWindow):
         self.toolbar.addAction(self.cortar_toolbar)
         self.toolbar.addAction(self.pegar_toolbar)
         self.toolbar.addAction(self.buscar_toolbar)
+        self.toolbar.addAction(self.voz_toolbar)
 
     
     
@@ -232,6 +237,39 @@ class MiniWord(QMainWindow):
         nuevo_texto = contenido.replace(texto, nuevo)
         self.texto.setPlainText(nuevo_texto)
         QMessageBox.information(self, "Reemplazar todo", "Todas las coincidencias fueron reemplazadas.")
+
+    def reconocer_voz(self):
+        recognizer = sr.Recognizer()
+        try:
+            with sr.Microphone() as source:                
+                recognizer.adjust_for_ambient_noise(source, duration=0.6)
+                recognizer.pause_threshold = 1.2
+                recognizer.non_speaking_duration = 0.6
+                audio = recognizer.listen(source, timeout=5, phrase_time_limit=10)
+        except sr.WaitTimeoutError:
+            return ""
+        except Exception as e:
+            return None
+
+        try:
+            texto = recognizer.recognize_google(audio, language="es-ES")
+            return texto.strip()
+        except sr.UnknownValueError:
+            return ""
+        except sr.RequestError:
+            return ""
+
+    def procesar_texto_de_voz(self, texto):
+        if texto:
+            self.texto.insertPlainText(texto + " ")
+            cursor = self.texto.textCursor()
+            self.texto.setTextCursor(cursor)
+
+    def dictar_por_voz(self):
+        texto = self.reconocer_voz()
+        if texto:
+            self.texto.insertPlainText(texto)
+
 
 if __name__ == "__main__":
     app = QApplication([])
