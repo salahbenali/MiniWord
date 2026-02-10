@@ -47,4 +47,35 @@ El editor incluye las siguientes herramientas:
 <img width="822" height="629" alt="Captura de pantalla (387)" src="https://github.com/user-attachments/assets/91c2a119-1b8a-44ce-a583-65851b571f64" />
 <img width="865" height="699" alt="Captura de pantalla (389)" src="https://github.com/user-attachments/assets/74ef48d4-4d8c-46b8-890d-6d862a45a62d" />
 
+## Señales en PySide6
+
+Las señales permiten que los componentes se comuniquen entre sí. En este caso, el widget "WordCounterWidget" emite una señal cada vez que se actualiza el conteo.
+
+El `WordCounterWidget` es un componente que muestra en tiempo real:
+- Contador de palabras
+- Contador de caracteres
+- Tiempo estimado de lectura
+
+Declaración de la señal:
+```python
+from PySide6.QtCore import Signal
+
+class WordCounterWidget(QWidget):
+    conteoActualizado = Signal(int, int)
+```
+
+Emisión de la señal:
+```python
+def update_from_text(self, text: str):
+    palabras = len(re.findall(r"\b\w+\b", text))
+    caracteres = len(text)
+    
+    self.lblP.setText(f"Palabras: {palabras}")
+    self.lblC.setText(f"Caracteres: {caracteres}")
+    self.lblT.setText(f"Lectura: {seg}s" if seg < 60 else f"Lectura: {round(seg/60)} min")
+
+    self.conteoActualizado.emit(palabras, caracteres)
+```
+
+
 

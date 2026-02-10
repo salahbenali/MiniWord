@@ -5,6 +5,7 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtGui import QAction, QTextDocument
 import speech_recognition as sr
+from contadorWidget import WordCounterWidget
 
 
 class MiniWord(QMainWindow):
@@ -14,12 +15,12 @@ class MiniWord(QMainWindow):
         self.resize(800,600)
 
         self.texto = QTextEdit()
-        self.texto.textChanged.connect(self.actualizar_contador)
 
         self.status = QStatusBar()
         self.setStatusBar(self.status)
-        self.contador = QLabel("Palabras: 0")
+        self.contador = WordCounterWidget()
         self.status.addPermanentWidget(self.contador)
+        self.texto.textChanged.connect(lambda: self.contador.update_from_text(self.texto.toPlainText()))
 
         self.crear_panel_buscar()
 
@@ -192,10 +193,7 @@ class MiniWord(QMainWindow):
         if color.isValid():
             self.texto.setStyleSheet(f"background-color: {color.name()};")
 
-    def actualizar_contador(self):
-        texto = self.texto.toPlainText()
-        palabras = len(texto.split())
-        self.contador.setText(f"Palabras: {palabras}")
+
 
 
     def toggle_panel_buscar(self):
