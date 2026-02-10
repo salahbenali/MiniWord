@@ -47,9 +47,22 @@ El editor incluye las siguientes herramientas:
 <img width="822" height="629" alt="Captura de pantalla (387)" src="https://github.com/user-attachments/assets/91c2a119-1b8a-44ce-a583-65851b571f64" />
 <img width="865" height="699" alt="Captura de pantalla (389)" src="https://github.com/user-attachments/assets/74ef48d4-4d8c-46b8-890d-6d862a45a62d" />
 
-## Señales en PySide6
+## Señales y su implementación
 
-Las señales permiten que los componentes se comuniquen entre sí. En este caso, el widget "WordCounterWidget" emite una señal cada vez que se actualiza el conteo.
+
+**Señal: `triggered` de QAction** — Todas las acciones del menú y toolbar conectan su señal `triggered` al método correspondiente (ej.: `nuevo_funcion`, `abrir_funcion`, `guardar_funcion`, `salir_funcion`, `cambiar_color_fondo`, `toggle_panel_buscar`, `dictar_por_voz`). Algunas se conectan directamente a métodos integrados de QTextEdit (ej.: `texto.undo`, `texto.redo`, `texto.copy`, `texto.cut`, `texto.paste`).
+
+
+**Señal: `clicked` de QPushButton** — Los botones del panel de búsqueda (`boton_buscar`, `boton_anterior`, `boton_todo`, `boton_reemplazar`, `boton_reemplazar_todo`) conectan su señal `clicked` a los métodos de búsqueda y reemplazo correspondientes (`buscar_siguiente`, `buscar_anterior`, `buscar_todo`, `reemplazar_siguiente`, `reemplazar_todo`).
+
+
+**Señal: `texto.textChanged`**  
+Señal integrada de `QTextEdit` que se emite cada vez que el contenido del editor cambia. Usada para actualizar el contador de palabras en tiempo real mediante una lambda que llama a `contador.update_from_text`.
+
+
+## Conteo de palabras con widget personalizado
+
+Las señales permiten que los componentes se comuniquen entre sí. En este caso, el widget `WordCounterWidget` emite una señal cada vez que se actualiza el conteo.
 
 El `WordCounterWidget` es un componente que muestra en tiempo real:
 - Contador de palabras
